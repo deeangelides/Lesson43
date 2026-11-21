@@ -1,0 +1,18 @@
+/* LESSON 38 — Grammar Quest. Builds on lesson37.css + lesson37b.css. */
+.map.map8{grid-template-columns:repeat(4,minmax(0,1fr));gap:24px 26px;margin-top:30px;}
+.map8 .map-c{padding:18px 18px 20px;}.map8 .map-c .mn{width:64px;height:64px;font-size:32px;}.map8 .map-c .mt{font-size:30px;}
+.yt{margin-top:0;background:#fff;color:var(--sp-ink);height:auto;align-self:start;aspect-ratio:auto;padding:26px 34px 30px;}.yt .mbody{color:var(--sp-ink);font-size:34px;line-height:1.45;}
+.rv-one>.yt{max-width:1400px;padding:36px 46px 44px;}.rv-one>.yt .mbody{font-size:42px;}.rv-one>.yt .wl{margin-top:56px;}
+.ql.ql-fig{font-size:27px;gap:14px 16px;}
+.zg{grid-template-columns:minmax(0,1fr) minmax(0,1fr);}
+.zg>.sp-card:nth-child(3){grid-column:2;grid-row:1 / span 2;}
+.zg .spacer{display:none;}
+.mess{margin-top:30px;max-width:1500px;background:#fff;border:5px dashed var(--ss-rose);border-radius:30px;padding:30px 40px;font-size:42px;font-weight:700;line-height:1.5;color:var(--sp-ink);transform:rotate(-.8deg);box-shadow:0 10px 0 var(--sp-ink);}
+.mess-lines{max-width:1500px;margin-top:18px;}
+.mess-lines .wl{margin:34px 0 4px;}
+.imp{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:30px;margin-top:30px;max-width:1600px;}
+.pairq{font-size:31px;font-weight:800;color:var(--sp-ink);margin:18px 0 0;}
+.code{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px 30px;margin-top:18px;font-size:30px;font-weight:700;color:var(--sp-ink);}
+.code b{font-family:var(--pd-font-display);font-weight:400;letter-spacing:.08em;}
+.gm8{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:40px 36px;margin-top:56px;max-width:1600px;}
+.gm8 .pd-btn{font-size:32px;padding:48px 22px;justify-content:center;text-align:center;white-space:normal;text-wrap:balance;line-height:1.15;text-decoration:none;}

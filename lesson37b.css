@@ -1,0 +1,27 @@
+/* LESSON 37b — October Revision · The Big One. Builds on lesson37.css (party-confetti skin). */
+.rv-two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:30px;align-items:start;max-width:1744px;}
+.rv-one{max-width:1744px;}
+.ql{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px 18px;align-items:baseline;font-size:31px;font-weight:600;line-height:1.35;color:var(--sp-ink);margin-top:20px;}
+.ql .bl{min-width:120px;}.ql.c2 .bl{min-width:110px;}
+.ql.c2{grid-template-columns:auto minmax(0,1fr) auto minmax(0,1fr);column-gap:18px;}
+.ql.lg{font-size:36px;gap:22px 20px;}
+.ql .n{font-family:var(--pd-font-display);font-size:.9em;color:var(--ss-rose);}
+.bl{display:inline-block;min-width:150px;height:.95em;border-bottom:4px dotted rgba(12,90,72,.55);vertical-align:baseline;margin:0 .12em;}
+.bl.s{min-width:70px;}
+.bl.l{min-width:300px;}
+.wl{display:block;height:0;border-bottom:4px dotted rgba(12,90,72,.5);margin:22px 0 4px;}
+.ar{color:var(--ss-orange);font-weight:800;margin:0 .25em;}
+.tg{font-size:.82em;font-weight:700;color:var(--sp-ink-soft);}
+.u{text-decoration:underline;text-decoration-color:var(--ss-rose);text-decoration-thickness:5px;text-underline-offset:6px;font-weight:800;}
+.pair{display:flex;flex-wrap:wrap;gap:12px 34px;}
+.pair>span{white-space:nowrap;}
+.tip{font-size:24px;font-weight:700;color:var(--sp-ink-soft);margin:18px 0 0;}
+.map{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:22px;margin-top:34px;max-width:1744px;}
+.map-c{background:#fff;border:5px solid var(--sp-ink);border-radius:30px;box-shadow:0 8px 0 var(--sp-ink);padding:22px 20px 24px;text-align:center;transform:rotate(var(--tilt,-1deg));}
+.map-c .mn{display:grid;place-items:center;width:74px;height:74px;margin:0 auto;border-radius:50%;border:5px solid var(--sp-ink);background:var(--hue);font-family:var(--pd-font-display);font-size:38px;color:var(--sp-ink);}
+.map-c .mt{font-family:var(--pd-font-display);font-size:30px;line-height:1.1;color:var(--sp-ink);margin:14px 0 0;}
+.map-c .md{font-size:22px;font-weight:700;color:var(--sp-ink-soft);margin:8px 0 0;line-height:1.35;}
+.rv-ticks{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:16px;}
+.rv-ticks li{display:block;position:relative;padding-left:56px;font-size:31px;font-weight:700;line-height:1.35;color:var(--sp-ink);}
+.rv-ticks li::before{content:"";position:absolute;left:0;top:3px;box-sizing:border-box;width:36px;height:36px;border:5px solid var(--sp-ink);border-radius:10px;background:#fff;box-shadow:0 4px 0 var(--sp-ink);}
+.nw{white-space:nowrap;}

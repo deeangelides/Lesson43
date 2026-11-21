@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jungle Penalty Shootout ⚽</title>
+<style>
+@font-face { font-family:'Bowlby One SC'; src:url('fonts/BowlbyOneSC-Regular.ttf') format('truetype'); font-weight:400; font-display:swap; }
+@font-face { font-family:'Quicksand'; src:url('fonts/Quicksand-Medium.ttf') format('truetype'); font-weight:500; font-display:swap; }
+@font-face { font-family:'Quicksand'; src:url('fonts/Quicksand-Bold.ttf') format('truetype'); font-weight:700; font-display:swap; }
+
+:root{
+  --pitch:#119C4C; --pitch-lt:#16AE56; --pitch-dk:#0B7437; --deep:#073f1f; --ink:#06301a;
+  --gold:#FFD21E; --gold-dk:#E0A800; --white:#fff; --red:#E63B2E; --blue:#2C6DE0;
+  --disp:'Bowlby One SC','Arial Black',sans-serif; --body:'Quicksand','Trebuchet MS',sans-serif;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent; touch-action:manipulation;}
+html,body{margin:0; height:100%; font-family:var(--body); user-select:none; overflow:hidden;}
+button{font-family:inherit; cursor:pointer;}
+
+#wrap{position:relative; height:100vh; display:flex; flex-direction:column;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='54'%3E%3Cpath d='M0 54V30Q30 12 60 28T120 30V54Z' fill='%232E9E6B' stroke='%230C5A48' stroke-width='4'/%3E%3Cpath d='M0 54V42L8 32L14 42L22 30L30 42L40 33L48 42L58 28L66 42L76 32L84 42L94 30L102 42L112 33L120 42V54Z' fill='%2384E6A4' stroke='%230C5A48' stroke-width='4' stroke-linejoin='round'/%3E%3C/svg%3E") 0 calc(40% - 70px)/240px 108px repeat-x,linear-gradient(180deg,#9EDCF5 0%,#D7F5E1 40%,#84E6A4 40%,#5FCF8A 100%);}
+
+/* ---------- HUD ---------- */
+header{display:flex; align-items:center; gap:clamp(10px,2vw,24px); flex-wrap:wrap; justify-content:center; padding:14px 16px 8px; z-index:5;}
+h1{font-family:var(--disp); color:#fff; font-size:clamp(22px,3.4vw,40px); margin:0; text-shadow:0 4px 0 var(--ink),0 0 16px rgba(0,0,0,.3); line-height:1;}
+h1 .em{color:var(--gold);}
+.stat{background:rgba(6,40,22,.6); border:4px solid #fff; border-radius:999px; padding:7px 20px; display:flex; align-items:center; gap:9px; box-shadow:0 5px 0 rgba(0,0,0,.25);}
+.stat .lbl{font-family:var(--disp); font-size:12px; color:#bfe9cf; letter-spacing:.05em;}
+.stat .val{font-family:var(--disp); font-size:clamp(20px,2.6vw,28px); color:var(--gold); line-height:1; min-width:1ch; text-align:center;}
+.val.bump{animation:bump .25s ease;}
+@keyframes bump{0%{transform:scale(1)}45%{transform:scale(1.3)}100%{transform:scale(1)}}
+#shots{display:flex; gap:7px;}
+#shots .pip{width:18px; height:18px; border-radius:50%; background:rgba(255,255,255,.28); border:3px solid #fff;}
+#shots .pip.goal{background:var(--gold);} #shots .pip.miss{background:var(--red);}
+.hbtn{font-family:var(--disp); font-size:14px; color:var(--ink); background:#fff; border:4px solid var(--ink); border-radius:999px; padding:9px 20px; box-shadow:0 5px 0 var(--ink); transition:transform .1s, box-shadow .1s;}
+.hbtn:hover{background:#f0f0f0;}
+.hbtn:active{transform:translateY(3px); box-shadow:0 2px 0 var(--ink);}
+
+/* ---------- PITCH ---------- */
+#field{position:relative; flex:1; min-height:0;}
+#field::before{content:""; position:absolute; left:50%; bottom:6%; width:min(560px,80vw); height:min(560px,80vw); transform:translateX(-50%);
+  border:6px solid rgba(12,90,72,.22); border-radius:50%; border-bottom:none; clip-path:inset(0 0 50% 0);}
+.spot{position:absolute; left:50%; bottom:7%; width:26px; height:9px; transform:translateX(-50%); background:rgba(12,90,72,.3); border-radius:50%;}
+
+/* goal */
+#goal{position:absolute; left:50%; top:5%; transform:translateX(-50%); width:min(600px,82vw); aspect-ratio:2.35/1;
+  border:14px solid #fff; border-bottom:none; border-radius:12px 12px 0 0;
+  background:
+    repeating-linear-gradient(0deg,transparent 0 18px,rgba(255,255,255,.5) 18px 20px),
+    repeating-linear-gradient(90deg,transparent 0 18px,rgba(255,255,255,.5) 18px 20px);
+  box-shadow:0 0 0 4px rgba(0,0,0,.12);}
+#goal.ripple{animation:ripple .45s ease;}
+@keyframes ripple{0%{transform:translateX(-50%) scaleY(1)}30%{transform:translateX(-50%) scaleY(.92)}60%{transform:translateX(-50%) scaleY(1.03)}100%{transform:translateX(-50%) scaleY(1)}}
+
+/* keeper */
+#keeper{position:absolute; left:50%; bottom:30%; width:clamp(80px,12vw,124px); transform:translateX(-50%); transition:transform .42s cubic-bezier(.3,1,.5,1); z-index:3;}
+#keeper .head{position:relative; width:34%; aspect-ratio:1; background:#F7C79B; border:4px solid var(--ink); border-radius:50%; margin:0 auto;}
+#keeper .head::before{content:""; position:absolute; left:-22%; right:-22%; top:-30%; height:50%; background:#C9D3D1; border:4px solid var(--ink); border-radius:50% 50% 30% 30%; z-index:2;}
+#keeper .head::after{content:none;}
+#keeper .horn{position:absolute; top:-78%; width:34%; height:62%; background:#FFF5CC; border:4px solid var(--ink); border-radius:80% 80% 20% 20%; z-index:1;}
+#keeper .hl{left:-42%; transform:rotate(-32deg);} #keeper .hr{right:-42%; transform:rotate(32deg);}
+#keeper .ruff{position:relative; z-index:2; width:70%; height:18px; margin:-6px auto 0; background:#FFD86B; border:4px solid var(--ink); border-radius:6px 6px 999px 999px; height:24px;}
+#keeper .body{position:relative; margin:-4px auto 0; width:78%; height:64px; background:#FF9EC4; border:4px solid var(--ink); border-radius:18px 18px 10px 10px;}
+#keeper .body::before, #keeper .body::after{content:""; position:absolute; top:8px; width:22%; height:54px; background:#FF9EC4; border:4px solid var(--ink); border-radius:12px;}
+#keeper .body::before{left:-20%; transform-origin:top right;}
+#keeper .body::after{right:-20%; transform-origin:top left;}
+#keeper .glove{position:absolute; top:0; width:24px; height:24px; background:#fff; border:4px solid var(--ink); border-radius:50%; z-index:2;}
+#keeper .gl-l{left:-26%;} #keeper .gl-r{right:-26%;}
+#keeper.dive-left{transform:translateX(calc(-50% - 150px)) rotate(-58deg);}
+#keeper.dive-right{transform:translateX(calc(-50% + 150px)) rotate(58deg);}
+#keeper.dive-mid{transform:translateX(-50%) translateY(-26px);}
+
+/* ball */
+#ball{position:absolute; left:50%; bottom:5%; width:clamp(46px,6.5vw,66px); aspect-ratio:1; transform:translateX(-50%);
+  z-index:4; filter:drop-shadow(0 8px 7px rgba(0,0,0,.35)); transition:transform .5s cubic-bezier(.35,.05,.3,1);}
+#ball svg{width:100%; height:100%; display:block;}
+#ball.spin svg{animation:spin .5s linear;}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* result flash */
+#flash{position:absolute; left:50%; top:40%; transform:translate(-50%,-50%) scale(.4); z-index:6; opacity:0;
+  font-family:var(--disp); font-size:clamp(48px,9vw,104px); text-shadow:0 5px 0 var(--ink),0 0 26px rgba(0,0,0,.4); pointer-events:none; white-space:nowrap;}
+#flash.show{animation:flash 1.1s ease forwards;}
+@keyframes flash{0%{opacity:0;transform:translate(-50%,-50%) scale(.4)}18%{opacity:1;transform:translate(-50%,-50%) scale(1.12)}30%{transform:translate(-50%,-50%) scale(1)}80%{opacity:1}100%{opacity:0;transform:translate(-50%,-60%) scale(1)}}
+#flash.goal{color:var(--gold);} #flash.save{color:#fff;}
+
+/* ---------- BUTTONS ---------- */
+#controls{display:flex; gap:clamp(10px,2vw,22px); justify-content:center; padding:14px clamp(10px,3vw,40px) 24px; z-index:5;}
+.shoot{flex:1; max-width:300px; font-family:var(--disp); font-size:clamp(17px,2.4vw,26px); color:var(--ink);
+  background:var(--gold); border:5px solid var(--ink); border-radius:20px; padding:clamp(16px,2.4vh,26px) 10px;
+  box-shadow:0 7px 0 var(--ink); transition:transform .1s, box-shadow .1s, background .15s; display:flex; flex-direction:column; align-items:center; gap:4px;}
+.shoot .ar{font-size:1.5em; line-height:1;}
+.shoot:hover:not(:disabled){background:#FFE266; transform:translateY(-2px); box-shadow:0 9px 0 var(--ink);}
+.shoot:active:not(:disabled){transform:translateY(4px); box-shadow:0 3px 0 var(--ink);}
+.shoot:disabled{opacity:.55; cursor:not-allowed;}
+.shoot.mid{background:#fff;} .shoot.mid:hover:not(:disabled){background:#f0f0f0;}
+
+/* ---------- OVERLAY ---------- */
+#over{position:fixed; inset:0; z-index:30; display:none; place-items:center; background:rgba(6,40,22,.82); backdrop-filter:blur(3px);}
+#over.show{display:grid; animation:fade .3s ease;}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.card{background:#fff; border:7px solid var(--ink); border-radius:30px; padding:clamp(26px,4vw,46px) clamp(30px,5vw,60px); text-align:center; box-shadow:0 16px 0 rgba(0,0,0,.3); max-width:90vw; animation:pop .45s cubic-bezier(.34,1.5,.5,1);}
+@keyframes pop{0%{transform:scale(.7)}100%{transform:scale(1)}}
+.card .ico{font-size:clamp(58px,10vw,104px); line-height:1; animation:bob 1.5s ease-in-out infinite;}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-12px) rotate(5deg)}}
+.card h2{font-family:var(--disp); color:var(--ink); font-size:clamp(30px,4.6vw,50px); margin:8px 0 2px; line-height:1.05;}
+.card .big{font-family:var(--disp); color:var(--red); font-size:clamp(40px,7vw,76px); margin:4px 0;}
+.card p{font-weight:700; color:#3a5a48; font-size:clamp(17px,2.3vw,22px); margin:0 0 22px;}
+.btn{font-family:var(--disp); font-size:clamp(18px,2.4vw,24px); color:var(--ink); background:var(--gold); border:5px solid var(--ink); border-radius:16px; padding:14px 34px; box-shadow:0 6px 0 var(--ink); transition:transform .1s, box-shadow .1s;}
+.btn:active{transform:translateY(3px); box-shadow:0 3px 0 var(--ink);}
+
+.conf{position:fixed; top:-20px; z-index:40; pointer-events:none; border-radius:2px; animation:fall linear forwards;}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg); opacity:.9;}}
+/* snowy keeper: woolly hat + ski goggles + stripy scarf */
+#keeper .horn{display:none;}
+#keeper .head::before{background:#E9C46A;}
+#keeper .head::after{content:none;}
+#keeper .ruff{background:repeating-linear-gradient(90deg,#84E6A4 0 10px,#FFD86B 10px 20px);}
+h1{text-shadow:0 4px 0 var(--ink);}
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" fill="#DCEBF7"/>
+  <rect x="70" y="120" width="372" height="180" rx="10" fill="none" stroke="#fff" stroke-width="18"/>
+  <rect x="226" y="210" width="60" height="86" rx="14" fill="#FFD21E" stroke="#06301a" stroke-width="10"/>
+  <circle cx="256" cy="186" r="22" fill="#F7C79B" stroke="#06301a" stroke-width="10"/>
+  <circle cx="256" cy="392" r="46" fill="#fff" stroke="#06301a" stroke-width="12"/>
+  <text x="256" y="410" font-size="52" text-anchor="middle">⚽</text>
+</svg>
+</template>
+
+<div id="wrap">
+  <header>
+    <h1>JUNGLE <span class="em">SHOOTOUT</span></h1>
+    <div class="stat"><span class="lbl">GOALS</span><span class="val" id="score">0</span></div>
+    <div class="stat"><span class="lbl">SHOTS</span><div id="shots"></div></div>
+    <button class="hbtn" id="replay">↺ Replay</button>
+  </header>
+
+  <div id="field">
+    <div id="goal"></div>
+    <div id="keeper">
+      <div class="head"><span class="horn hl"></span><span class="horn hr"></span></div>
+      <div class="ruff"></div>
+      <div class="body"><span class="glove gl-l"></span><span class="glove gl-r"></span></div>
+    </div>
+    <div class="spot"></div>
+    <div id="ball">
+      <svg viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="48" fill="#fff" stroke="#06301a" stroke-width="3"/>
+        <path d="M50 22 l16 12 -6 19 -20 0 -6 -19 Z" fill="#06301a"/>
+        <path d="M50 22 l0 -14 M66 34 l13 -8 M60 53 l11 13 M40 53 l-11 13 M34 34 l-13 -8" stroke="#06301a" stroke-width="3" fill="none"/>
+      </svg>
+    </div>
+    <div id="flash"></div>
+  </div>
+
+  <div id="controls">
+    <button class="shoot" data-dir="left"><span class="ar">⬅️</span>Shoot Left</button>
+    <button class="shoot mid" data-dir="mid"><span class="ar">⬆️</span>Shoot Middle</button>
+    <button class="shoot" data-dir="right"><span class="ar">➡️</span>Shoot Right</button>
+  </div>
+</div>
+
+<div id="over">
+  <div class="card">
+    <div class="ico" id="overIco">🏆</div>
+    <h2>FULL TIME! 🌿</h2>
+    <div class="big" id="overScore">0 / 5</div>
+    <p id="overMsg">Great shooting!</p>
+    <button class="btn" id="again">⚽ Play Again</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var TOTAL=10;
+  var score=0, shot=0, busy=false;
+  var DIRS=['left','mid','right'];
+
+  var scoreEl=document.getElementById('score'),
+      shotsEl=document.getElementById('shots'),
+      keeper=document.getElementById('keeper'),
+      ball=document.getElementById('ball'),
+      goal=document.getElementById('goal'),
+      flash=document.getElementById('flash'),
+      field=document.getElementById('field'),
+      overEl=document.getElementById('over');
+
+  /* audio */
+  var AC=null, soundOn=true;
+  function ac(){ if(!AC){ try{AC=new(window.AudioContext||window.webkitAudioContext)();}catch(e){} } if(AC&&AC.state==='suspended'){ try{AC.resume();}catch(e){} } return AC; }
+  function noise(d){ var c=ac(); if(!c) return null; var n=(c.sampleRate*d)|0, b=c.createBuffer(1,n,c.sampleRate), a=b.getChannelData(0); for(var i=0;i<n;i++)a[i]=Math.random()*2-1; var s=c.createBufferSource(); s.buffer=b; return s; }
+  function tone(f,d,t,v){ if(!soundOn) return; var c=ac(); if(!c) return; var o=c.createOscillator(),g=c.createGain(); o.type=t||'sine'; o.frequency.value=f; g.gain.setValueAtTime(.0001,c.currentTime); g.gain.exponentialRampToValueAtTime(v||.18,c.currentTime+.02); g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+d); o.connect(g).connect(c.destination); o.start(); o.stop(c.currentTime+d+.02); }
+  function kickSound(){ tone(300,.12,'sine',.18); }
+  function cheer(){ if(!soundOn) return; var c=ac(); if(!c) return; var s=noise(.8); if(!s) return; var g=c.createGain(),f=c.createBiquadFilter(); f.type='bandpass'; f.frequency.setValueAtTime(700,c.currentTime); f.frequency.linearRampToValueAtTime(1500,c.currentTime+.3); g.gain.setValueAtTime(0,c.currentTime); g.gain.linearRampToValueAtTime(.26,c.currentTime+.08); g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.8); s.connect(f).connect(g).connect(c.destination); s.start();
+    [523,659,784].forEach(function(fr,i){ setTimeout(function(){tone(fr,.2,'triangle',.18);}, i*90); }); }
+  function saveSound(){ tone(200,.18,'sawtooth',.16); setTimeout(function(){tone(150,.2,'sawtooth',.13);},120); }
+  function whistle(){ [880,1175].forEach(function(f,i){ setTimeout(function(){tone(f,.4,'square',.12);},i*120); }); }
+
+  function buildPips(){
+    shotsEl.innerHTML='';
+    for(var i=0;i<TOTAL;i++){ var p=document.createElement('span'); p.className='pip'; shotsEl.appendChild(p); }
+  }
+
+  function setButtons(on){ [].forEach.call(document.querySelectorAll('.shoot'),function(b){ b.disabled=!on; }); }
+
+  function zoneFrac(dir){ return dir==='left'?0.2 : dir==='right'?0.8 : 0.5; }
+
+  function shoot(dir){
+    if(busy || shot>=TOTAL) return;
+    ac(); busy=true; setButtons(false);
+    var keeperDir = DIRS[Math.floor(Math.random()*3)];
+    var saved = keeperDir===dir;
+
+    var gRect=goal.getBoundingClientRect(), fRect=field.getBoundingClientRect(),
+        bRect=ball.getBoundingClientRect(), kRect=keeper.getBoundingClientRect();
+    var ballCx=bRect.left+bRect.width/2, ballCy=bRect.top+bRect.height/2;
+    var kCx=kRect.left+kRect.width/2, kCy=kRect.top+kRect.height/2;
+
+    // keeper dives
+    keeper.classList.remove('dive-left','dive-mid','dive-right');
+    keeper.classList.add('dive-'+keeperDir);
+
+    // where does the ball end up?
+    var targetX, targetY, scale;
+    if(saved){
+      // the keeper catches it — ball stays in the gloves, never reaches the net
+      var off = keeperDir==='mid' ? 0 : (keeperDir==='left' ? -150 : 150);
+      targetX = kCx + off;
+      targetY = (keeperDir==='mid') ? kCy - 26 : kCy;
+      scale = .62;
+    } else {
+      targetX = gRect.left + zoneFrac(dir)*gRect.width;
+      targetY = gRect.top + gRect.height*0.5;
+      scale = .5;
+    }
+    ball.classList.add('spin');
+    ball.style.transform='translateX(-50%) translate('+(targetX-ballCx)+'px,'+(targetY-ballCy)+'px) scale('+scale+')';
+
+    kickSound();
+
+    setTimeout(function(){
+      var pip=shotsEl.children[shot];
+      if(saved){
+        pip.classList.add('miss');
+        showFlash('SAVED!','save'); saveSound();
+      } else {
+        goal.classList.remove('ripple'); void goal.offsetWidth; goal.classList.add('ripple');
+        pip.classList.add('goal');
+        score++; scoreEl.textContent=score; bump(scoreEl);
+        showFlash('GOAL!','goal'); cheer(); miniConfetti(targetX-fRect.left, targetY-fRect.top);
+      }
+      shot++;
+      setTimeout(resetForNext, 1050);
+    }, 500);
+  }
+
+  function showFlash(txt,cls){
+    flash.textContent=txt; flash.className=cls;
+    void flash.offsetWidth; flash.classList.add('show');
+  }
+  function bump(el){ el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump'); }
+
+  function resetForNext(){
+    // snap ball back without transition
+    ball.style.transition='none';
+    ball.classList.remove('spin');
+    ball.style.transform='translateX(-50%)';
+    void ball.offsetWidth;
+    ball.style.transition='';
+    keeper.classList.remove('dive-left','dive-mid','dive-right');
+    if(shot>=TOTAL){ setTimeout(finish, 450); return; }
+    busy=false; setButtons(true);
+  }
+
+  function finish(){
+    var ico=document.getElementById('overIco'), msg=document.getElementById('overMsg');
+    document.getElementById('overScore').textContent=score+' / '+TOTAL;
+    var m, ic;
+    if(score===10){ ic='🏆'; m='PERFECT! A legendary jungle striker! 🌟'; }
+    else if(score>=8){ ic='🥇'; m='Brilliant! What a shooter!'; }
+    else if(score>=6){ ic='⚽'; m='Nice work — great aim!'; }
+    else if(score>=4){ ic='👏'; m='Keep practising — you\u2019ll get there!'; }
+    else if(score>=1){ ic='🙂'; m='Good effort — have another go?'; }
+    else { ic='🧤'; m='The explorer keeper was unbeatable! Try again.'; }
+    ico.textContent=ic; msg.textContent=m;
+    whistle();
+    if(score>=6) bigConfetti();
+    overEl.classList.add('show');
+  }
+
+  function miniConfetti(x,y){
+    var cols=['#FFD21E','#E63B2E','#2C6DE0','#fff','#16AE56'];
+    for(var i=0;i<16;i++){ var d=document.createElement('div'); d.className='conf';
+      var s=6+Math.random()*7; d.style.width=s+'px'; d.style.height=(s*.6)+'px';
+      d.style.left=(x)+'px'; d.style.top=(y)+'px'; d.style.position='absolute';
+      d.style.background=cols[i%cols.length]; d.style.zIndex=7;
+      d.style.animation='fall '+(1+Math.random()*.8)+'s ease-in forwards';
+      field.appendChild(d); (function(el){setTimeout(function(){el.remove();},2000);})(d);
+    }
+  }
+  function bigConfetti(){
+    var cols=['#FFD21E','#E63B2E','#2C6DE0','#fff','#16AE56','#FF7BAC'];
+    for(var i=0;i<90;i++){ var d=document.createElement('div'); d.className='conf';
+      var s=7+Math.random()*9; d.style.width=s+'px'; d.style.height=(s*.5)+'px';
+      d.style.left=Math.random()*100+'vw'; d.style.background=cols[i%cols.length];
+      d.style.animationDuration=(2.4+Math.random()*2)+'s'; d.style.animationDelay=(Math.random()*.6)+'s';
+      if(Math.random()<.5) d.style.borderRadius='50%';
+      document.body.appendChild(d); (function(el){setTimeout(function(){el.remove();},5200);})(d);
+    }
+  }
+
+  function reset(){
+    score=0; shot=0; busy=false;
+    scoreEl.textContent='0';
+    buildPips();
+    overEl.classList.remove('show');
+    ball.style.transition='none'; ball.style.transform='translateX(-50%)'; void ball.offsetWidth; ball.style.transition='';
+    keeper.classList.remove('dive-left','dive-mid','dive-right');
+    setButtons(true);
+  }
+
+  document.querySelectorAll('.shoot').forEach(function(b){ b.addEventListener('click',function(){ shoot(b.dataset.dir); }); });
+  document.getElementById('again').addEventListener('click',reset);
+  document.getElementById('replay').addEventListener('click',reset);
+
+  reset();
+})();
+</script>
+<div style="position:fixed;left:0;right:0;bottom:6px;text-align:center;z-index:31;font-family:var(--body);font-weight:700;font-size:15px;"><a href="lesson-43-voice-of-nature.html" style="color:#fff;text-decoration:none;background:rgba(6,40,22,.6);border:3px solid #fff;border-radius:999px;padding:3px 14px;">🌿 Back to Lesson 43</a></div>
+</body>
+</html>

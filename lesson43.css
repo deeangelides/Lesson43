@@ -1,0 +1,78 @@
+/* LESSON 43 — The Voice of Nature: Sir David Attenborough (wild-planet skin: jungle green, ocean blue, leaf green, savanna cream, misty mint + sunset peach, a grassy-hill footer and leaf/paw confetti)
+   Requires: colors_and_type.css, lesson5/6/9/25/26/30/32/33/34/35/36/37/37b/38/39/40/41/42.css. */
+:root{--ws-timber:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='54'%3E%3Cpath d='M0 54V30Q30 12 60 28T120 30V54Z' fill='%232E9E6B' stroke='%230C5A48' stroke-width='4'/%3E%3Cpath d='M0 54V42L8 32L14 42L22 30L30 42L40 33L48 42L58 28L66 42L76 32L84 42L94 30L102 42L112 33L120 42V54Z' fill='%2384E6A4' stroke='%230C5A48' stroke-width='4' stroke-linejoin='round'/%3E%3C/svg%3E");--wp-jungle:#17664A;--wp-ocean:#1E6FA0;--wp-leaf:#2E9E6B;--wp-savanna:#FFF1C9;--wp-mist:#EAF8EC;--wp-sunset:#FFD3B8;}
+.slide.ss-mint{background:var(--wp-jungle);}.slide.ss-lav{background:var(--wp-ocean);}.slide.ss-aqua{background:var(--wp-leaf);}
+.slide.ss-lemon{background:var(--wp-savanna);}.slide.ss-paper{background:var(--wp-mist);}.slide.ss-pink{background:var(--wp-sunset);}
+.ss-title .c1{color:#FFF5CC;}.ss-title .c3,.slide.ss-lav .ss-title .c3{color:#FFD86B;}
+.ws-veil{background:linear-gradient(180deg,rgba(8,52,36,.4) 0%,rgba(8,46,32,.9) 100%);}
+.slide .motif{filter:drop-shadow(0 12px 16px rgba(8,46,32,.35));}
+/* leaf + paw confetti */
+.bits i.oc.leaf{--m:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M6 34C4 18 14 6 36 4C36 24 24 36 6 34Z'/%3E%3C/svg%3E");}
+.bits i.oc.paw{--m:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cellipse cx='20' cy='27' rx='10' ry='8.5'/%3E%3Cellipse cx='8' cy='16' rx='4.5' ry='5.5'/%3E%3Cellipse cx='15.5' cy='8' rx='4.5' ry='5.5'/%3E%3Cellipse cx='24.5' cy='8' rx='4.5' ry='5.5'/%3E%3Cellipse cx='32' cy='16' rx='4.5' ry='5.5'/%3E%3C/svg%3E");}
+/* world map */
+.mapbox.wide{width:1120px;height:660px;background:#BFE3F7;}
+/* collocation equation good/bad */
+.peq .fb.no{text-decoration:line-through;text-decoration-thickness:6px;text-decoration-color:var(--ss-rose);opacity:.8;}
+.peq .tick{font-size:56px;line-height:1;}
+/* story collocation cards with photos */
+.cc4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:26px;margin-top:30px;max-width:1744px;}
+.cc{background:#fff;border:5px solid var(--sp-ink);border-radius:30px;box-shadow:0 9px 0 var(--sp-ink);padding:16px 16px 20px;transform:rotate(var(--tilt,-1deg));display:flex;flex-direction:column;gap:14px;}
+.cc img{display:block;width:100%;height:230px;object-fit:cover;border-radius:20px;border:4px solid var(--sp-ink);}
+.cc .v{align-self:center;text-align:center;font-family:var(--pd-font-display);font-size:34px;line-height:1.05;color:var(--sp-ink);background:var(--hue,#FFF5CC);border:4px solid var(--sp-ink);border-radius:22px;padding:10px 18px;}
+/* make / do tiles */
+.md5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:24px;margin-top:30px;max-width:1744px;}
+.mdt{display:flex;flex-direction:column;align-items:center;gap:14px;background:#fff;border:5px solid var(--sp-ink);border-radius:30px;box-shadow:0 8px 0 var(--sp-ink);padding:22px 14px 24px;transform:rotate(var(--tilt,-1deg));}
+.mdt .e{font-size:72px;line-height:1;}
+.mdt .bx{width:150px;height:70px;border:4px dashed var(--sp-ink);border-radius:16px;background:#FFF5CC;}
+.mdt .w{font-family:var(--pd-font-display);font-size:34px;line-height:1.05;color:var(--sp-ink);text-align:center;}
+/* choose the word chips */
+.ch{display:inline-block;font-family:var(--pd-font-display);font-size:28px;line-height:1;color:var(--sp-ink);background:var(--hue,#FFF5CC);border:3px solid var(--sp-ink);border-radius:999px;padding:6px 16px 7px;vertical-align:middle;}
+/* limerick */
+.lim{background:#FFFBF0;border:6px solid var(--sp-ink);border-radius:36px;box-shadow:0 12px 0 var(--sp-ink);padding:34px 46px 36px;transform:rotate(-.8deg);}
+.lim p{margin:0;font-size:46px;font-weight:700;line-height:1.5;color:var(--sp-ink);display:flex;align-items:center;gap:18px;}
+.lim p.in{padding-left:80px;}
+.lim .rk{flex:none;display:grid;place-items:center;width:52px;height:52px;border-radius:50%;border:4px solid var(--sp-ink);font-family:var(--pd-font-display);font-size:26px;background:var(--hue,#FFB8C6);}
+.lim mark{background:var(--hue,#FFB8C6);color:var(--sp-ink);border-radius:12px;padding:0 10px;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
+.lim.frame p{font-size:36px;line-height:1.3;padding:14px 0;}
+.lim.frame .wl{flex:1;border-bottom:4px dashed var(--sp-ink);height:40px;}
+.lim.frame .st{font-weight:700;color:var(--ss-rose);}
+/* Just a Minute trail board */
+.jam{display:grid;grid-template-columns:292px 62px 292px 62px 292px 62px 292px 62px 292px;grid-template-rows:350px 54px 350px;margin-top:26px;align-self:center;}
+.jbox{all:unset;box-sizing:border-box;position:relative;cursor:pointer;background:#fff;border:5px solid var(--sp-ink);border-radius:30px;box-shadow:0 9px 0 var(--sp-ink);padding:14px 14px 16px;display:flex;flex-direction:column;align-items:center;gap:12px;transform:rotate(var(--tilt,-1deg));transition:transform .15s,box-shadow .15s;}
+.jbox:hover{transform:rotate(0deg) translateY(-6px) scale(1.03);box-shadow:0 14px 0 var(--sp-ink);}
+.jbox .pic{display:block;width:100%;height:168px;flex:none;border-radius:20px;border:4px solid var(--sp-ink);object-fit:cover;background:var(--hue,#FFF5CC);}
+.jbox .pic.stk{object-fit:contain;padding:6px;}
+.jbox .t{flex:1;display:grid;place-items:center;font-family:var(--pd-font-display);font-size:29px;line-height:1.08;text-align:center;color:var(--sp-ink);text-wrap:balance;}
+.jbox .no{position:absolute;top:-22px;left:-18px;width:58px;height:58px;border-radius:50%;background:#FFD86B;border:4px solid var(--sp-ink);display:grid;place-items:center;font-family:var(--pd-font-display);font-size:26px;color:var(--sp-ink);z-index:2;}
+.jbox.done{background:#D7F5E1;}
+.jbox.done::after{content:"⭐ DONE!";position:absolute;top:120px;left:50%;transform:translateX(-50%) rotate(-10deg);font-family:var(--pd-font-display);font-size:30px;color:var(--sp-ink);background:#FFD86B;border:4px solid var(--sp-ink);border-radius:16px;padding:6px 16px;white-space:nowrap;box-shadow:0 5px 0 var(--sp-ink);}
+.jbox.pick{animation:jpick .5s ease;}
+@keyframes jpick{0%,100%{transform:rotate(var(--tilt,-1deg)) scale(1)}50%{transform:rotate(3deg) scale(1.08)}}
+.ja{position:relative;}
+.ja i{position:absolute;left:4px;right:18px;top:50%;margin-top:-4px;border-top:8px dotted #FFF5CC;}
+.ja b{position:absolute;right:0;top:50%;transform:translateY(-50%);border-left:22px solid #FFF5CC;border-top:16px solid transparent;border-bottom:16px solid transparent;}
+.ja.l{transform:scaleX(-1);}
+.ja.d{justify-self:center;width:58px;transform:rotate(90deg);}
+.jam-top{display:flex;align-items:center;gap:22px;flex-wrap:wrap;}
+.jam-top .ws-plate{margin:0;}
+.jam-modal{position:absolute;inset:0;z-index:40;display:none;place-items:center;background:rgba(6,44,30,.7);}
+.jam-modal.show{display:grid;}
+.jam-card{position:relative;width:1380px;background:#FFFBF0;border:7px solid var(--sp-ink);border-radius:44px;box-shadow:0 16px 0 var(--sp-ink);padding:46px 56px;display:grid;grid-template-columns:440px minmax(0,1fr);gap:56px;align-items:center;animation:jpop .35s cubic-bezier(.34,1.5,.5,1);}
+@keyframes jpop{from{transform:scale(.8)}to{transform:scale(1)}}
+.jam-card .big{display:block;width:440px;height:440px;border-radius:32px;border:6px solid var(--sp-ink);object-fit:cover;background:#FFF5CC;transform:rotate(-2deg);}
+.jam-card .big.stk{object-fit:contain;padding:20px;}
+.jam-card .lbl{font-family:var(--pd-font-display);font-size:24px;color:var(--sp-ink);background:#84E6A4;border:4px solid var(--sp-ink);border-radius:999px;padding:8px 20px;justify-self:start;display:inline-block;}
+.jam-card h3{font-family:var(--pd-font-display);font-weight:400;font-size:66px;line-height:1.02;color:var(--sp-ink);margin:18px 0 0;text-wrap:balance;}
+.jam-row{display:flex;align-items:center;gap:34px;margin-top:26px;}
+.jam-ring{position:relative;width:250px;height:250px;flex:none;}
+.jam-ring svg{width:100%;height:100%;transform:rotate(-90deg);}
+.jam-ring .n{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--pd-font-display);font-size:84px;line-height:1;color:var(--sp-ink);}
+.jam-ring.low .n{color:var(--ss-rose);}
+.jam-ctl{display:flex;flex-direction:column;gap:16px;}
+.jam-seg{display:flex;background:#fff;border:4px solid var(--sp-ink);border-radius:999px;padding:5px;}
+.jam-seg button{all:unset;cursor:pointer;font-family:var(--pd-font-display);font-size:24px;color:var(--sp-ink);padding:10px 22px;border-radius:999px;}
+.jam-seg button.on{background:#FFD86B;}
+.jam-btns{display:flex;gap:14px;flex-wrap:wrap;}
+.jam-btns .pd-btn{font-size:23px;padding-left:22px;padding-right:22px;}
+.jam-x{all:unset;cursor:pointer;position:absolute;top:-28px;right:-28px;width:70px;height:70px;border-radius:50%;background:#FFB8C6;border:5px solid var(--sp-ink);box-shadow:0 6px 0 var(--sp-ink);display:grid;place-items:center;font-family:var(--pd-font-display);font-size:32px;color:var(--sp-ink);}
+.jam-msg{margin-top:18px;font-size:30px;font-weight:700;color:var(--sp-ink);min-height:40px;}

@@ -1,0 +1,63 @@
+/* LESSON 39 — Shakespeare & the World of Poetry (Tudor-timber skin: candy blocks + a black-and-white "timber frame" band like the Globe and Shakespeare's house)
+   Requires: colors_and_type.css, lesson5/6/9/25/26/30/32/33/34/35/36/37/37b/38.css. */
+:root{--ws-timber:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='54'%3E%3Crect width='120' height='54' fill='%23FFFCF0'/%3E%3Cpath d='M0 0V54M60 0V54M120 0V54M0 54L30 27L60 54M60 0L90 27L120 0' stroke='%230C5A48' stroke-width='7' fill='none'/%3E%3C/svg%3E");}
+/* swap the confetti ribbon for Tudor timber beams */
+.slide.ss-mint::after,.slide.ss-lav::after,.slide.ss-pink::after,.slide.ss-aqua::after{background-color:#FFFCF0;background-image:var(--ws-timber);background-size:120px 54px;background-position:0 0;}
+.slide.ss-lemon::after{content:"";position:absolute;left:0;right:0;bottom:0;height:40px;border-top:7px solid var(--sp-ink);background-image:var(--ws-timber);background-size:89px 40px;z-index:1;pointer-events:none;}
+.slide[class*="ss-"] .photo-cap{background:#fff;border:3px solid var(--sp-ink);border-radius:999px;padding:4px 16px;display:table;margin:12px auto 0;white-space:nowrap;color:var(--sp-ink);font-size:24px;font-weight:700;}
+.ws-dark .photo-cap{background:#fff;}
+/* photo-backed divider */
+.ws-bg{position:absolute;inset:0 0 54px 0;width:100%;height:calc(100% - 54px);object-fit:cover;z-index:0;}
+.ws-veil{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(12,90,72,.55) 0%,rgba(12,90,72,.9) 100%);}
+.ws-dark .lead{color:#fff!important;text-shadow:0 2px 14px rgba(3,30,22,.6)!important;}
+/* heading plate */
+.ws-plate{display:inline-block;background:#fff;border:5px solid var(--sp-ink);border-radius:28px;box-shadow:var(--sp-shadow-pop);padding:12px 30px;}
+.ws-plate h2{font-family:var(--pd-font-display);font-weight:400;font-size:58px;line-height:1.05;margin:0;color:var(--sp-ink);}
+/* poetry terms */
+.term-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:26px 30px;margin-top:30px;max-width:1740px;}
+.term{background:#fff;border:5px solid var(--sp-ink);border-radius:30px;box-shadow:0 8px 0 var(--sp-ink);padding:22px 30px 24px;transform:rotate(var(--tilt,-.6deg));}
+.term .tw{display:inline-block;font-family:var(--pd-font-display);font-size:40px;line-height:1.05;color:var(--sp-ink);background:var(--hue,#FFF5CC);border:4px solid var(--sp-ink);border-radius:18px;padding:6px 20px;}
+.term .tw small{font-family:var(--pd-font-body);font-weight:700;font-size:24px;}
+.term .td{font-size:30px;font-weight:700;line-height:1.4;color:var(--sp-ink);margin:14px 0 0;}
+.term .tx{font-size:27px;font-weight:700;line-height:1.4;color:var(--ss-rose);margin:8px 0 0;}
+/* poem cards */
+.poem{position:relative;background:#FFFCF0;border:5px solid var(--sp-ink);border-radius:30px;box-shadow:0 10px 0 var(--sp-ink);padding:24px 34px 28px;}
+.poem .ptag{display:inline-block;font-family:var(--pd-font-display);font-size:30px;color:var(--sp-ink);background:var(--hue,#FFF5CC);border:4px solid var(--sp-ink);border-radius:999px;padding:6px 22px;box-shadow:0 4px 0 var(--sp-ink);transform:rotate(-1.5deg);}
+.poem .pnote{font-size:25px;font-weight:700;color:var(--sp-ink-soft);margin:6px 0 0;line-height:1.35;}
+.poem .pl{display:flex;align-items:center;gap:18px;font-size:34px;font-weight:700;font-style:italic;line-height:1.35;color:var(--sp-ink);margin:12px 0 0;}
+.poem .pl .t{flex:1;}
+.poem .pl b{font-style:normal;color:var(--ss-rose);}
+.poem .rs{flex:none;display:grid;place-items:center;width:52px;height:52px;border-radius:50%;border:4px solid var(--sp-ink);font-family:var(--pd-font-display);font-style:normal;font-size:28px;color:var(--sp-ink);background:var(--rc,#FFF5CC);}
+.poem .rs.a{--rc:#FFB8C6;}.poem .rs.b{--rc:#8FD3F4;}.poem .rs.n{--rc:#C9B6FF;font-size:24px;}
+.poem .first{font-family:var(--pd-font-display);font-style:normal;font-size:1.25em;color:var(--ss-rose);}
+.pfoot{font-size:27px;font-weight:700;color:var(--sp-ink);margin:16px 0 0;line-height:1.4;}
+.pfoot b{color:var(--ss-rose);}
+/* big quote */
+.ws-quote{background:#fff;border:6px solid var(--sp-ink);border-radius:36px;box-shadow:var(--sp-shadow-pop);padding:30px 44px;transform:rotate(-1deg);}
+.ws-quote q{display:block;font-family:var(--pd-font-display);font-size:54px;line-height:1.15;color:var(--sp-ink);quotes:"\201C" "\201D";}
+.ws-quote cite{display:block;font-style:normal;font-weight:700;font-size:28px;color:var(--ss-rose);margin-top:14px;}
+/* types of poem chips */
+.types{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px 20px;margin-top:26px;}
+.type{display:flex;align-items:center;gap:16px;background:#fff;border:4px solid var(--sp-ink);border-radius:22px;box-shadow:0 6px 0 var(--sp-ink);padding:12px 20px;}
+.type b{flex:none;font-family:var(--pd-font-display);font-weight:400;font-size:30px;color:var(--sp-ink);background:var(--hue,#FFF5CC);border:3px solid var(--sp-ink);border-radius:14px;padding:4px 14px;}
+.type span{font-size:25px;font-weight:700;color:var(--sp-ink);line-height:1.3;}
+/* tragedy / comedy */
+.tc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;margin-top:18px;}
+.tc .sp-card{padding:16px 24px;text-align:center;}
+.tc h3{font-family:var(--pd-font-display);font-weight:400;font-size:34px;margin:0;color:var(--sp-ink);}
+.tc p{font-size:25px;font-weight:700;margin:6px 0 0;color:var(--sp-ink);line-height:1.35;}
+/* syllable clapping */
+.claps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:26px;margin-top:40px;max-width:1700px;}
+.clap{background:#fff;border:5px solid var(--sp-ink);border-radius:30px;box-shadow:0 10px 0 var(--sp-ink);padding:30px 16px 26px;text-align:center;transform:rotate(var(--tilt,-1.5deg));}
+.clap .cw{font-family:var(--pd-font-display);font-size:46px;line-height:1.1;color:var(--sp-ink);}
+.clap .ce{font-size:60px;line-height:1;margin-top:10px;}
+.clap .cb{display:block;width:90px;height:76px;margin:16px auto 0;border:4px dashed rgba(12,90,72,.55);border-radius:20px;background:var(--hue,#FFF5CC);}
+/* write-your-own cards */
+.wyo{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:28px;max-width:1740px;}
+.wyo .mission{margin-top:0;background:#fff;padding:22px 28px 26px;height:auto;aspect-ratio:auto;}
+.wyo .mission .mbody{color:var(--sp-ink);font-size:30px;line-height:1.4;}
+.wyo .wl{margin-top:40px;}
+@media (prefers-reduced-motion:reduce){.bits i{animation:none;}}
+
+/* upscale small source photos to the frame height */
+.kh-frame.up img{height:var(--h);width:auto;}

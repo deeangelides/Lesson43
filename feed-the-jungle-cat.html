@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Feed the Jungle Cat — Word Game</title>
+<link rel="stylesheet" href="colors_and_type.css">
+<link rel="stylesheet" href="lesson5.css">
+<link rel="stylesheet" href="lesson12.css">
+<style>
+  html, body { margin:0; height:100%; }
+  body {
+    font-family:var(--pd-font-body); color:var(--sp-ink);
+    background:
+      radial-gradient(95% 60% at 15% 4%, rgba(127,224,255,.35), transparent 52%),
+      radial-gradient(120% 110% at 88% 110%, rgba(255,210,63,.30), transparent 54%),
+      linear-gradient(158deg, #2E9E6B 0%, #1E6FA0 60%, #17664A 100%);
+    min-height:100vh; display:flex; flex-direction:column; align-items:center;
+    -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  /* faint drifting paw prints */
+  body::before { content:""; position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.5;
+    background-image:
+      radial-gradient(9px 9px at 12% 22%, rgba(12,90,72,.10), transparent 60%),
+      radial-gradient(7px 7px at 78% 14%, rgba(12,90,72,.08), transparent 60%),
+      radial-gradient(10px 10px at 34% 74%, rgba(12,90,72,.09), transparent 60%),
+      radial-gradient(8px 8px at 66% 84%, rgba(12,90,72,.08), transparent 60%),
+      radial-gradient(9px 9px at 90% 56%, rgba(12,90,72,.08), transparent 60%),
+      radial-gradient(8px 8px at 8% 82%, rgba(12,90,72,.09), transparent 60%); }
+
+  .wrap { position:relative; z-index:2; width:min(1120px, 94vw); padding:26px 0 60px; }
+
+  .top { display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap; margin-bottom:18px; }
+  .brand { display:flex; align-items:center; gap:16px; }
+  .brand h1 { font-family:var(--pd-font-display); font-weight:800; font-size:44px; line-height:1; margin:0; color:#fff;
+    letter-spacing:.01em; text-shadow:0 3px 0 var(--sp-ink); }
+  .brand .sub { font-weight:700; font-size:18px; color:#fff; margin-top:6px; }
+  .scorebox { display:flex; gap:12px; }
+  .stat { background:#fff; border:4px solid var(--sp-ink); border-radius:18px; box-shadow:var(--sp-drop);
+    padding:8px 20px; text-align:center; min-width:90px; }
+  .stat b { display:block; font-family:var(--pd-font-display); font-size:32px; line-height:1; color:var(--sp-violet); }
+  .stat span { font-weight:700; font-size:15px; text-transform:uppercase; letter-spacing:.04em; color:var(--sp-ink); opacity:.7; }
+
+  .board { display:grid; grid-template-columns:340px 1fr; gap:26px; align-items:stretch; }
+  @media (max-width:1040px){ .board { grid-template-columns:1fr; } .akstage { flex-direction:row; align-items:center; justify-content:space-around; } .akimg{ height:220px; } }
+
+  .panel { position:relative; background:#fff; border:6px solid var(--sp-ink); border-radius:32px;
+    box-shadow:var(--sp-shadow-pop); padding:24px; }
+
+  .akstage { display:flex; flex-direction:column; align-items:center; text-align:center;
+    background:radial-gradient(120% 90% at 50% 0%, #FFF7E4, #FDE9C6); justify-content:space-between; }
+  .akimg { width:236px; height:238px; object-fit:contain; margin-top:2px;
+    filter:drop-shadow(0 12px 16px rgba(12,90,72,.3)); transition:transform .2s ease; }
+  .akimg.bob { animation:bob 2.6s ease-in-out infinite; }
+  @keyframes bob { 0%,100%{ transform:translateY(0) rotate(-1deg);} 50%{ transform:translateY(-10px) rotate(1deg);} }
+  .akspeech { font-family:var(--pd-font-display); font-weight:700; font-size:22px; color:var(--sp-ink);
+    background:#fff; border:4px solid var(--sp-ink); border-radius:16px; padding:8px 18px; box-shadow:var(--sp-drop);
+    min-height:1em; margin-bottom:6px; }
+  .plate-label { font-weight:800; font-size:16px; text-transform:uppercase; letter-spacing:.05em; color:var(--sp-ink); opacity:.7; margin:12px 0 6px; }
+  .plate { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; }
+  .snack { font-size:30px; line-height:1; transition:transform .3s ease, opacity .3s ease; }
+  .snack.eaten { opacity:.16; transform:scale(.6) rotate(-25deg); }
+
+  .clue { font-weight:700; font-size:22px; color:var(--sp-ink); background:var(--sp-tint-gold);
+    border:4px solid var(--sp-ink); border-radius:16px; padding:12px 20px; box-shadow:var(--sp-drop); }
+  .clue b { font-family:var(--pd-font-display); color:var(--sp-violet); }
+
+  .word { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin:26px 0 24px; }
+  .tile { width:52px; height:64px; border-bottom:7px solid var(--sp-ink); display:grid; place-items:center;
+    font-family:var(--pd-font-display); font-weight:800; font-size:40px; color:var(--sp-ink); }
+  .tile.space { border:none; width:22px; }
+  .tile.reveal { animation:pop .3s cubic-bezier(.34,1.56,.64,1) both; }
+  @keyframes pop { 0%{ transform:scale(.4) translateY(10px); opacity:0;} 100%{ transform:scale(1) translateY(0); opacity:1;} }
+
+  .keyboard { display:flex; flex-direction:column; gap:9px; align-items:center; }
+  .krow { display:flex; gap:9px; justify-content:center; }
+  .key { width:60px; height:60px; border:4px solid var(--sp-ink); border-radius:14px; background:#fff;
+    font-family:var(--pd-font-display); font-weight:700; font-size:26px; color:var(--sp-ink); cursor:pointer;
+    box-shadow:0 5px 0 var(--sp-ink); transition:transform .08s ease, box-shadow .08s ease; }
+  .key:hover:not(:disabled){ transform:translateY(-2px); box-shadow:0 7px 0 var(--sp-ink); }
+  .key:active:not(:disabled){ transform:translateY(4px); box-shadow:0 1px 0 var(--sp-ink); }
+  .key.right { background:var(--sp-lav); color:var(--sp-ink); box-shadow:0 5px 0 #2E9E6B; border-color:#2E9E6B; cursor:default; }
+  .key.wrong { background:var(--sp-coral); box-shadow:0 5px 0 var(--sp-coral-dk); border-color:var(--sp-coral-dk); color:#fff; cursor:default; opacity:.85; }
+  .key:disabled { cursor:default; }
+  @media (max-width:620px){ .key{ width:44px; height:52px; font-size:20px;} .tile{ width:40px; height:52px; font-size:30px;} .akstage{ flex-direction:column; } }
+
+  .banner { position:absolute; inset:0; z-index:10; display:none; place-items:center; border-radius:26px;
+    background:rgba(12,90,72,.55); backdrop-filter:blur(2px); }
+  .banner.show { display:grid; animation:fade .2s ease both; }
+  @keyframes fade { from{opacity:0;} to{opacity:1;} }
+  .card-msg { background:#fff; border:6px solid var(--sp-ink); border-radius:28px; box-shadow:var(--sp-shadow-pop);
+    padding:30px 40px; text-align:center; max-width:440px; }
+  .card-msg h2 { font-family:var(--pd-font-display); font-weight:800; font-size:44px; margin:0; line-height:1.05; }
+  .card-msg h2.win { color:#2E9E6B; }
+  .card-msg h2.lose { color:var(--sp-mars-dk); }
+  .card-msg p { font-size:22px; font-weight:700; margin:14px 0 0; color:var(--sp-ink); }
+  .card-msg .ans { font-family:var(--pd-font-display); color:var(--sp-violet); letter-spacing:.04em; }
+
+  .btnrow { display:flex; gap:14px; justify-content:center; margin-top:22px; flex-wrap:wrap; }
+  .pd-btn { text-decoration:none; }
+  .backlink { position:relative; z-index:2; margin-top:26px; font-weight:700; font-size:18px; color:#fff; }
+  .backlink a { color:#FFD86B; text-decoration:none; border-bottom:3px dotted #FFD86B; }
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" fill="#84E6A4"/>
+  <ellipse cx="256" cy="292" rx="140" ry="140" fill="#F0A83C"/>
+  <path d="M156 200 l28 -66 40 52 z" fill="#E0902B"/>
+  <path d="M356 200 l-28 -66 -40 52 z" fill="#E0902B"/>
+  <circle cx="212" cy="278" r="14" fill="#241A1A"/><circle cx="300" cy="278" r="14" fill="#241A1A"/>
+  <path d="M256 302 l-12 15 h24 z" fill="#241A1A"/>
+  <g stroke="#241A1A" stroke-width="6" stroke-linecap="round"><path d="M150 300 h70"/><path d="M362 300 h-70"/></g>
+  <text x="256" y="452" font-family="sans-serif" font-size="60" text-anchor="middle">🐟</text>
+</svg>
+</template>
+<div class="wrap">
+  <div class="top">
+    <div class="brand">
+      <div style="font-size:56px; line-height:1;">🌴</div>
+      <div>
+        <h1>Feed the Jungle Cat</h1>
+        <div class="sub">Guess the word from today’s lesson — but every wrong letter feeds the hungry jungle cat a fish! 🐟</div>
+      </div>
+    </div>
+    <div class="scorebox">
+      <div class="stat"><b id="streak">0</b><span>Streak</span></div>
+      <div class="stat"><b id="solved">0</b><span>Solved</span></div>
+    </div>
+  </div>
+
+  <div class="board">
+    <!-- LEFT -->
+    <div class="panel akstage">
+      <div>
+        <div class="akspeech" id="speech">Miaow — I'm hungry! 🐱</div>
+        <img class="akimg bob" id="akimg" src="cats/cat-orange-wave.png" alt="Cat">
+        <img id="imgHungry" src="cats/cat-orange-wave.png" alt="" style="display:none;">
+        <img id="imgStuffed" src="cats/cat-yellow-lie.png" alt="" style="display:none;">
+      </div>
+      <div>
+        <div class="plate-label">Fish left · <span id="livesnum">6</span></div>
+        <div class="plate" id="plate"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="panel" style="display:flex; flex-direction:column;">
+      <div class="clue">🔎 Clue: <span id="clue">…</span></div>
+      <div class="word" id="word"></div>
+      <div class="keyboard" id="keyboard"></div>
+      <div class="banner" id="banner">
+        <div class="card-msg">
+          <h2 id="msgTitle" class="win">Solved!</h2>
+          <p id="msgBody">The word was <span class="ans" id="msgAns"></span></p>
+          <div class="btnrow">
+            <button class="pd-btn pd-btn--mint" id="nextBtn">▶ Next word</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="backlink">🌿 <a href="lesson-43-voice-of-nature.html">Back to Lesson 43</a></div>
+</div>
+
+<script>
+(function(){
+  var WORDS = [
+    { w:"ATTENBOROUGH", c:"The surname of the world’s most famous nature broadcaster." },
+    { w:"ENGLAND",     c:"The country where David was born." },
+    { w:"FOSSILS",     c:"Ancient shells and bones that David collected as a boy." },
+    { w:"DOCUMENTARY", c:"A film about real life — David has made lots about nature!" },
+    { w:"GORILLAS",    c:"David came face to face with mountain …" },
+    { w:"DOLPHINS",    c:"Clever sea animals that David swam alongside." },
+    { w:"JUNGLE",      c:"A hot, thick forest full of trees, vines and animals." },
+    { w:"DESERT",      c:"A scorching, dry place full of sand." },
+    { w:"REMOTE",      c:"A place very far away from towns and people is …" },
+    { w:"PROTECT",     c:"To keep something safe from harm." },
+    { w:"CENTURY",     c:"One hundred years." },
+    { w:"PLANET",      c:"Earth is our precious …" },
+    { w:"WILDLIFE",    c:"Wild animals and plants." },
+    { w:"COLLOCATION", c:"Words that naturally go together." },
+    { w:"MAKE A FILM", c:"We don’t ‘do’ a film — we …" },
+    { w:"TAKE A PHOTO", c:"What you do with a camera (three words)." },
+    { w:"FAST FOOD",   c:"Not ‘quick food’ — it’s …" },
+    { w:"HEAVY RAIN",  c:"Not ‘strong rain’ — it’s …" },
+    { w:"LIMERICK",    c:"A funny five-line poem that rhymes AABBA." },
+    { w:"RHYME",       c:"Bear, care and chair all …" }
+  ];
+  var MAX = 6;
+  var SNACK = "🐟";
+  var rows = ["QWERTYUIOP","ASDFGHJKL","ZXCVBNM"];
+  var IMG_HUNGRY = document.getElementById('imgHungry').src;
+  var IMG_STUFFED = document.getElementById('imgStuffed').src;
+
+  var state = { word:"", clue:"", guessed:{}, wrong:0, over:false };
+  var order = [], oi = 0;
+
+  var elWord = document.getElementById('word');
+  var elKb = document.getElementById('keyboard');
+  var elClue = document.getElementById('clue');
+  var elPlate = document.getElementById('plate');
+  var elLives = document.getElementById('livesnum');
+  var elSpeech = document.getElementById('speech');
+  var elImg = document.getElementById('akimg');
+  var elBanner = document.getElementById('banner');
+  var elStreak = document.getElementById('streak');
+  var elSolved = document.getElementById('solved');
+
+  var store = { streak:0, solved:0 };
+  try {
+    var s = JSON.parse(localStorage.getItem('feedJungleCat')||'{}');
+    if(typeof s.streak==='number') store.streak=s.streak;
+    if(typeof s.solved==='number') store.solved=s.solved;
+  } catch(e){}
+  function save(){ try{ localStorage.setItem('feedJungleCat', JSON.stringify(store)); }catch(e){} }
+  function paintScore(){ elStreak.textContent=store.streak; elSolved.textContent=store.solved; }
+
+  function shuffle(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+
+  function nextWord(){
+    if(oi>=order.length){ order=shuffle(WORDS.map(function(_,i){return i;})); oi=0; }
+    var item = WORDS[order[oi++]];
+    state = { word:item.w, clue:item.c, guessed:{}, wrong:0, over:false };
+    elClue.textContent = item.c;
+    elBanner.classList.remove('show');
+    speak("Miaow — I'm hungry! 🐱");
+    elImg.src = IMG_HUNGRY;
+    elImg.classList.add('bob'); elImg.style.transform='';
+    buildWord(); buildPlate(); buildKeys();
+  }
+
+  function buildWord(){
+    elWord.innerHTML='';
+    state.word.split('').forEach(function(ch){
+      var t=document.createElement('div');
+      if(ch===' '){ t.className='tile space'; }
+      else { t.className='tile'; t.dataset.ch=ch; t.textContent=''; }
+      elWord.appendChild(t);
+    });
+  }
+
+  function buildPlate(){
+    elPlate.innerHTML='';
+    for(var i=0;i<MAX;i++){
+      var s=document.createElement('span'); s.className='snack'; s.textContent=SNACK;
+      elPlate.appendChild(s);
+    }
+    elLives.textContent=MAX;
+  }
+
+  function buildKeys(){
+    elKb.innerHTML='';
+    rows.forEach(function(r){
+      var rowEl=document.createElement('div'); rowEl.className='krow';
+      r.split('').forEach(function(letter){
+        var b=document.createElement('button'); b.className='key'; b.textContent=letter; b.dataset.k=letter;
+        b.addEventListener('click', function(){ guess(letter); });
+        rowEl.appendChild(b);
+      });
+      elKb.appendChild(rowEl);
+    });
+  }
+
+  function speak(t){ elSpeech.textContent=t; }
+
+  var HAPPY=["Good guess! 🌟","Keep going! ✨","You're purr-fect! 🐱","Nice one! 🐾"];
+  var OOPS=["Mmm, a fish! 🐟","Munch munch… 😋","Careful now! 😮","That fills me up! 🐾"];
+
+  function guess(letter){
+    if(state.over || state.guessed[letter]) return;
+    state.guessed[letter]=true;
+    var key=elKb.querySelector('[data-k="'+letter+'"]');
+    if(state.word.indexOf(letter)>=0){
+      if(key){ key.classList.add('right'); key.disabled=true; }
+      revealLetter(letter);
+      speak(HAPPY[Math.floor(Math.random()*HAPPY.length)]);
+      checkWin();
+    } else {
+      if(key){ key.classList.add('wrong'); key.disabled=true; }
+      state.wrong++;
+      var left = MAX - state.wrong;
+      elLives.textContent = left;
+      var snacks = elPlate.querySelectorAll('.snack');
+      if(snacks[state.wrong-1]) snacks[state.wrong-1].classList.add('eaten');
+      speak(OOPS[Math.floor(Math.random()*OOPS.length)]);
+      elImg.style.transform = 'scale('+(1 + state.wrong*0.03)+')';
+      if(state.wrong>=MAX) lose();
+    }
+  }
+
+  function revealLetter(letter){
+    var tiles=elWord.querySelectorAll('.tile');
+    tiles.forEach(function(t){
+      if(t.dataset.ch===letter){ t.textContent=letter; t.classList.add('reveal'); }
+    });
+  }
+
+  function allRevealed(){
+    var tiles=elWord.querySelectorAll('.tile:not(.space)');
+    for(var i=0;i<tiles.length;i++){ if(!tiles[i].textContent) return false; }
+    return true;
+  }
+
+  function checkWin(){ if(allRevealed()) win(); }
+
+  function win(){
+    state.over=true;
+    store.streak++; store.solved++; save(); paintScore();
+    speak("Purr-fect! 🎉");
+    showBanner(true);
+  }
+  function lose(){
+    state.over=true;
+    store.streak=0; save(); paintScore();
+    elImg.classList.remove('bob');
+    elImg.src = IMG_STUFFED;
+    elImg.style.transform='';
+    speak("So full… zzz 😴");
+    var tiles=elWord.querySelectorAll('.tile');
+    var i=0;
+    state.word.split('').forEach(function(ch){
+      var t=tiles[i++]; if(ch!==' '){ t.textContent=ch; t.style.borderBottomColor='var(--sp-mars)'; }
+    });
+    showBanner(false);
+  }
+
+  function showBanner(didWin){
+    document.getElementById('msgTitle').textContent = didWin ? "Solved! 🎉" : "Stuffed! 😴";
+    document.getElementById('msgTitle').className = didWin ? "win" : "lose";
+    document.getElementById('msgBody').innerHTML = didWin
+      ? 'The cat stayed hungry and you cracked <span class="ans">'+state.word+'</span>!'
+      : 'The cat got too full. The word was <span class="ans">'+state.word+'</span>';
+    elBanner.classList.add('show');
+  }
+
+  document.getElementById('nextBtn').addEventListener('click', nextWord);
+  document.addEventListener('keydown', function(e){
+    var k=e.key.toUpperCase();
+    if(state.over && (e.key==='Enter'||e.key===' ')){ e.preventDefault(); nextWord(); return; }
+    if(k.length===1 && k>='A' && k<='Z'){ guess(k); }
+  });
+
+  paintScore();
+  order=shuffle(WORDS.map(function(_,i){return i;}));
+  nextWord();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+/* LESSON 41 — Diana Nyad · Never, Ever Give Up (deep-ocean skin: rich blues + sand, a rolling-wave footer and ocean-shape confetti)
+   Requires: colors_and_type.css, lesson5/6/9/25/26/30/32/33/34/35/36/37/37b/38/39/40.css. */
+:root{--ws-timber:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='54'%3E%3Cpath d='M0 22Q15 6 30 22T60 22T90 22T120 22V54H0Z' fill='%235FBDEB'/%3E%3Cpath d='M0 22Q15 6 30 22T60 22T90 22T120 22' fill='none' stroke='%230C5A48' stroke-width='4'/%3E%3Cpath d='M0 38Q15 26 30 38T60 38T90 38T120 38V54H0Z' fill='%231E78B4'/%3E%3Cpath d='M0 38Q15 26 30 38T60 38T90 38T120 38' fill='none' stroke='%230C5A48' stroke-width='4'/%3E%3C/svg%3E");--oc-deep:#0B4F7C;--oc-teal:#0E6E8C;--oc-cobalt:#1268A6;--oc-sand:#FBE7BE;--oc-foam:#DDF3FA;--oc-coral:#FFB09D;}
+/* palette — deep ocean, teal depths, cobalt, warm sand, sea foam, coral */
+.slide.ss-mint{background:var(--oc-deep);}.slide.ss-lav{background:var(--oc-teal);}.slide.ss-aqua{background:var(--oc-cobalt);}
+.slide.ss-lemon{background:var(--oc-sand);}.slide.ss-paper{background:var(--oc-foam);}.slide.ss-pink{background:var(--oc-coral);}
+.ss-title .c1{color:#FFF5CC;}.ss-title .c3,.slide.ss-pink .ss-title .c3,.slide.ss-lav .ss-title .c3{color:#7FE0FF;}
+/* white type straight on the deep-blue slides */
+.slide.ss-mint .lead,.slide.ss-lav .lead,.slide.ss-aqua .lead,.slide.ss-mint .head,.slide.ss-lav .head,.slide.ss-aqua .head{color:#fff;}
+.slide.ss-aqua .sec-name,.slide.ss-lav .sec-name{background:#fff;border:5px solid var(--sp-ink);border-radius:20px;padding:10px 22px;flex:0 1 auto;}
+.slide.ss-mint .lead strong,.slide.ss-lav .lead strong,.slide.ss-aqua .lead strong{color:#FFD86B;}
+.slide.ss-mint .tl::before{border-top-color:#fff;}
+.slide.ss-aqua .fstrip .op{color:#fff;}
+.slide .motif{filter:drop-shadow(0 12px 16px rgba(3,30,50,.35));}
+.ws-veil{background:linear-gradient(180deg,rgba(4,40,70,.5) 0%,rgba(4,36,64,.92) 100%);}
+/* clean rolling-wave footer */
+.slide.ss-mint::after,.slide.ss-lav::after,.slide.ss-pink::after,.slide.ss-aqua::after{border-top:none;background-color:transparent;background-image:var(--ws-timber);background-size:120px 54px;background-position:0 0;}
+.slide.ss-lemon::after{border-top:none;background-color:transparent;background-image:var(--ws-timber);background-size:89px 40px;}
+/* ocean-shape confetti */
+.bits i.oc{width:1em;height:1em;border-radius:0;background:var(--c);-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat;}
+.bits i.oc.fish{--m:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 24'%3E%3Cellipse cx='16' cy='12' rx='14' ry='9'/%3E%3Cpath d='M27 12L40 2V22Z'/%3E%3C/svg%3E");width:1.6em;height:1em;}
+.bits i.oc.star{--m:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M20 2L25 15L39 15L28 24L32 38L20 30L8 38L12 24L1 15L15 15Z' stroke='%23000' stroke-width='3' stroke-linejoin='round'/%3E%3C/svg%3E");}
+.bits i.oc.wave{--m:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 20'%3E%3Cpath d='M3 12Q9 2 15 12T27 12T39 12' fill='none' stroke='%23000' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E");width:1.8em;height:.9em;}
+.bits i.oc.shell{--m:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 32'%3E%3Cpath d='M20 31L3 13A17 15 0 0 1 37 13Z'/%3E%3Crect x='15' y='26' width='10' height='6' rx='2'/%3E%3C/svg%3E");width:1.1em;height:.9em;}
+.bits i.oc.bub{-webkit-mask:none;mask:none;width:.8em;height:.8em;border-radius:50%;background:radial-gradient(circle at 32% 30%,var(--c) 0 .1em,transparent .11em);border:.1em solid var(--c);}
+/* big number stickers */
+.nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:26px;margin-top:34px;max-width:1744px;}
+.num-st{background:#fff;border:5px solid var(--sp-ink);border-radius:30px;box-shadow:0 9px 0 var(--sp-ink);padding:20px 18px 22px;text-align:center;transform:rotate(var(--tilt,-1.2deg));}
+.num-st b{display:block;font-family:var(--pd-font-display);font-weight:400;font-size:76px;line-height:1;color:var(--sp-ink);background:var(--hue,#FFF5CC);border:4px solid var(--sp-ink);border-radius:22px;padding:14px 0 10px;}
+.num-st span{display:block;margin-top:14px;font-size:28px;font-weight:700;line-height:1.3;color:var(--sp-ink);}
+/* three tense cards */
+.pc3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:30px;max-width:1744px;}
+.pc{background:#fff;border:5px solid var(--sp-ink);border-radius:32px;box-shadow:0 10px 0 var(--sp-ink);padding:24px 28px 28px;transform:rotate(var(--tilt,-1deg));display:flex;flex-direction:column;gap:14px;}
+.pc .nm{align-self:flex-start;font-family:var(--pd-font-display);font-size:28px;line-height:1;color:var(--sp-ink);background:var(--hue,#FFF5CC);border:4px solid var(--sp-ink);border-radius:999px;padding:8px 20px;}
+.pc .fm{font-family:var(--pd-font-display);font-size:36px;line-height:1.15;color:var(--ss-rose);margin:0;}
+.pc .ds{font-size:27px;font-weight:700;line-height:1.35;color:var(--sp-ink);margin:0;}
+.pc .ex{font-size:29px;font-weight:700;line-height:1.35;color:var(--sp-ink);margin:auto 0 0;background:var(--sp-tint-gold,#FFF5CC);border:3px dashed var(--sp-ink);border-radius:18px;padding:12px 18px;}
+.pc .ex b{color:var(--ss-rose);}
+/* formula strip */
+.fstrip{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:30px;}
+.fstrip .fb{font-family:var(--pd-font-display);font-size:48px;line-height:1;color:var(--sp-ink);background:var(--hue,#fff);border:5px solid var(--sp-ink);border-radius:26px;box-shadow:0 7px 0 var(--sp-ink);padding:18px 30px;transform:rotate(var(--tilt,-1.5deg));}
+.fstrip .op{font-family:var(--pd-font-display);font-size:56px;color:var(--sp-ink);}
+/* emoji story rows */
+.emo-rows{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 28px;margin-top:26px;max-width:1744px;}
+.erow{display:flex;align-items:center;gap:20px;background:#fff;border:5px solid var(--sp-ink);border-radius:30px;box-shadow:0 8px 0 var(--sp-ink);padding:18px 26px;transform:rotate(var(--tilt,-.8deg));}
+.erow .rn{flex:none;display:grid;place-items:center;width:70px;height:70px;border-radius:50%;background:var(--hue,#FFF5CC);border:4px solid var(--sp-ink);font-family:var(--pd-font-display);font-size:34px;color:var(--sp-ink);}
+.erow .em{font-size:62px;line-height:1;letter-spacing:.06em;}
+/* useful phrases */
+.phr{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px 22px;align-items:center;margin-top:20px;}
+.phr .k{font-family:var(--pd-font-display);font-size:28px;line-height:1;color:var(--sp-ink);background:var(--hue,#FFF5CC);border:4px solid var(--sp-ink);border-radius:999px;padding:8px 20px;text-align:center;}
+.phr .v{font-size:28px;font-weight:700;line-height:1.35;color:var(--sp-ink);}
+.chk{display:flex;flex-direction:column;gap:12px;margin:14px 0 0;padding:0;list-style:none;}
+.chk li{display:flex;align-items:center;gap:14px;font-size:28px;font-weight:700;color:var(--sp-ink);}
+.chk li .bx{flex:none;width:34px;height:34px;border:4px solid var(--sp-ink);border-radius:10px;background:#fff;}
+.slide .sec-row .sec-name{flex:0 1 auto;}
+.itemlist.tight .item{padding:10px 28px;}

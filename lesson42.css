@@ -1,0 +1,49 @@
+/* LESSON 42 — The Shark's Fin (snowy-summit skin: alpine blues, dusk lavender, snow cream + alpenglow, a snow-capped mountain footer and snowflake confetti)
+   Requires: colors_and_type.css, lesson5/6/9/25/26/30/32/33/34/35/36/37/37b/38/39/40/41.css. */
+:root{--ws-timber:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='54'%3E%3Cpath d='M0 54V34L18 14L34 30L54 4L76 30L94 12L120 34V54Z' fill='%237FA8D8' stroke='%230C5A48' stroke-width='4' stroke-linejoin='round'/%3E%3Cpath d='M47 13L54 4L61 13L57 11L54 15L50 11Z' fill='%23fff'/%3E%3Cpath d='M89 18L94 12L99 18L96 17L94 19L92 17Z' fill='%23fff'/%3E%3Cpath d='M0 54V44L14 34L30 44L46 30L64 44L82 32L100 44L120 36V54Z' fill='%23fff' stroke='%230C5A48' stroke-width='4' stroke-linejoin='round'/%3E%3C/svg%3E");--mt-night:#22406E;--mt-dusk:#4B3C8A;--mt-ice:#2D78A8;--mt-snow:#FFF6E2;--mt-frost:#E8F3FB;--mt-glow:#FFC7B0;}
+.slide.ss-mint{background:var(--mt-night);}.slide.ss-lav{background:var(--mt-dusk);}.slide.ss-aqua{background:var(--mt-ice);}
+.slide.ss-lemon{background:var(--mt-snow);}.slide.ss-paper{background:var(--mt-frost);}.slide.ss-pink{background:var(--mt-glow);}
+.ss-title .c1{color:#FFF5CC;}.ss-title .c3,.slide.ss-pink .ss-title .c3,.slide.ss-lav .ss-title .c3{color:#FFB8C6;}
+.ws-veil{background:linear-gradient(180deg,rgba(20,34,70,.45) 0%,rgba(18,30,64,.9) 100%);}
+.slide .motif{filter:drop-shadow(0 12px 16px rgba(10,24,60,.35));}
+.bits i.oc.flake{--m:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M20 3V37M5.3 11.5L34.7 28.5M5.3 28.5L34.7 11.5M14 5L20 10L26 5M14 35L20 30L26 35' fill='none' stroke='%23000' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");}
+.bits i.oc.mtn{--m:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 30'%3E%3Cpath d='M1 29L15 5L22 16L28 9L39 29Z'/%3E%3C/svg%3E");width:1.4em;height:1em;}
+.bits i.oc.flag{--m:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect x='7' y='2' width='4' height='36' rx='2'/%3E%3Cpath d='M11 4H35L28 12L35 20H11Z'/%3E%3C/svg%3E");}
+.bits i.oc.snow{-webkit-mask:none;mask:none;width:.7em;height:.7em;border-radius:50%;background:var(--c);}
+/* map */
+.mapbox{flex:none;width:980px;height:860px;background:#BFE3F7;border:6px solid #0C5A48;border-radius:36px;box-shadow:var(--sp-shadow-pop);overflow:hidden;transform:rotate(-.8deg);}
+/* phrasal verb equation */
+.peq{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:30px;}
+.peq .fb{font-family:var(--pd-font-display);font-size:52px;line-height:1;color:var(--sp-ink);background:var(--hue,#fff);border:5px solid var(--sp-ink);border-radius:26px;box-shadow:0 7px 0 var(--sp-ink);padding:18px 30px;transform:rotate(var(--tilt,-1.5deg));}
+.peq .op{font-family:var(--pd-font-display);font-size:58px;color:#fff;}
+/* phrasal verb example cards */
+.pv4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;margin-top:30px;max-width:1744px;}
+.pvc{background:#fff;border:5px solid var(--sp-ink);border-radius:30px;box-shadow:0 9px 0 var(--sp-ink);padding:22px 22px 24px;transform:rotate(var(--tilt,-1deg));display:flex;flex-direction:column;gap:12px;}
+.pvc .em{font-size:64px;line-height:1;}
+.pvc .v{align-self:flex-start;font-family:var(--pd-font-display);font-size:36px;line-height:1;color:var(--sp-ink);background:var(--hue,#FFF5CC);border:4px solid var(--sp-ink);border-radius:999px;padding:10px 20px;}
+.pvc .m{font-size:29px;font-weight:700;line-height:1.3;color:var(--sp-ink);margin:0;}
+.pvc .m b{color:var(--ss-rose);}
+/* matching game */
+.mt{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px 60px;margin-top:26px;max-width:1500px;}
+.mt .l,.mt .r{display:flex;align-items:center;gap:18px;background:#fff;border:5px solid var(--sp-ink);border-radius:24px;box-shadow:0 6px 0 var(--sp-ink);padding:14px 24px;font-size:34px;font-weight:700;color:var(--sp-ink);}
+.mt .l b,.mt .r b{font-family:var(--pd-font-display);font-weight:400;color:var(--ss-rose);}
+.mt .l .bx{margin-left:auto;flex:none;width:74px;height:56px;border:4px dashed var(--sp-ink);border-radius:14px;background:#FFF5CC;}
+.mt .r{background:var(--hue,#E8F3FB);}
+/* word box */
+.wbox{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-top:18px;background:#fff;border:5px dashed var(--sp-ink);border-radius:26px;padding:16px 24px;max-width:1500px;}
+.wbox .k{font-family:var(--pd-font-display);font-size:24px;color:var(--sp-ink);margin-right:6px;}
+.wchip{font-family:var(--pd-font-display);font-size:32px;line-height:1;color:var(--sp-ink);background:var(--hue,#FFF5CC);border:4px solid var(--sp-ink);border-radius:999px;padding:10px 22px;box-shadow:0 5px 0 var(--sp-ink);transform:rotate(var(--tilt,-1.5deg));}
+/* a / an tiles */
+.an6{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px 30px;margin-top:30px;max-width:1500px;}
+.ant{display:flex;align-items:center;gap:18px;background:#fff;border:5px solid var(--sp-ink);border-radius:28px;box-shadow:0 8px 0 var(--sp-ink);padding:18px 24px;transform:rotate(var(--tilt,-1deg));}
+.ant .bx{flex:none;width:96px;height:72px;border:4px dashed var(--sp-ink);border-radius:16px;background:#FFF5CC;}
+.ant .w{font-family:var(--pd-font-display);font-size:40px;line-height:1.05;color:var(--sp-ink);}
+.ant .e{margin-left:auto;font-size:52px;line-height:1;}
+/* a vs an rule cards */
+.ab2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:30px;margin-top:30px;max-width:1600px;}
+.abc{background:#fff;border:6px solid var(--sp-ink);border-radius:34px;box-shadow:0 10px 0 var(--sp-ink);padding:26px 34px 30px;transform:rotate(var(--tilt,-1deg));}
+.abc .big{display:inline-block;font-family:var(--pd-font-display);font-size:84px;line-height:1;color:var(--sp-ink);background:var(--hue,#FFF5CC);border:5px solid var(--sp-ink);border-radius:26px;padding:12px 30px 8px;}
+.abc .rule{font-size:31px;font-weight:700;line-height:1.35;color:var(--sp-ink);margin:18px 0 0;}
+.abc .ex{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px;}
+.abc .ex span{font-size:30px;font-weight:700;color:var(--sp-ink);background:var(--sp-tint-gold,#FFF5CC);border:3px dashed var(--sp-ink);border-radius:16px;padding:8px 16px;}
+.abc .ex b{color:var(--ss-rose);}

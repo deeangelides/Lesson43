@@ -1,0 +1,201 @@
+/* ============================================================
+   LESSON 12 — "Cats: Small but Mighty Hunters" · FACT FILES
+   The Fact Files unit leaves the moonlit forest for a bright,
+   sunny living-room-window world of cats. Layers on top of
+   lesson5.css (the full layout system) + lesson6.css (the
+   ⚡ Field Challenge callout) — but retunes the whole palette
+   from deep-night to BRIGHT candy-pastel: mint-green lead,
+   pine-teal ink, lemon / coral / aqua pops. Backgrounds are
+   warm cream or bold mint/aqua colour blocks (never dark).
+   New teaching furniture this lesson:
+     • Literal vs figurative     — lit (teal) · fig (rose)
+     • Idioms & proverbs         — idiom (orange) · proverb (blue)
+       + a bright matching board
+   British English throughout.
+   ============================================================ */
+
+/* ============================================================
+   BRIGHT CAT RESKIN — override the inherited SPACE palette so
+   nothing reads as "cosmos/night". Retuned to the brand's own
+   mint + pine-teal, warmed with lemon, coral and aqua. Loaded
+   after lesson5.css, so these win.
+   ============================================================ */
+:root {
+  --sp-ink:       #0C5A48;   /* deep pine — outlines & dark text */
+  --sp-violet:    #C43C74;   /* rose — subhead numbers / arrows / seeds */
+  --sp-lav:       #84E6A4;   /* mint — the fill lead */
+  --sp-lav-soft:  #BFEFCF;
+  --sp-cream:     #FBF9F2;   /* brand cream page */
+  --sp-white:     #FFFFFF;
+
+  --sp-gold:      #FFD23F;   --sp-gold-dk:  #F2A900;   /* lemon / honey */
+  --sp-coral:     #FF9EC4;   --sp-coral-dk: #E0588E;   /* soft pink */
+  --sp-aqua:      #7FE3E8;   --sp-aqua-dk:  #2BA8A2;   /* fresh aqua */
+  --sp-mars:      #FF8A4C;   --sp-mars-dk:  #D9531C;   /* warm orange */
+
+  /* soft card-fill tints, all bright candy pastels */
+  --sp-tint-lav:   #DCF6E4;  /* soft mint */
+  --sp-tint-gold:  #FFF4C6;  /* lemon */
+  --sp-tint-aqua:  #E1FAFB;  /* pale aqua */
+  --sp-tint-coral: #FEE3EC;  /* soft pink */
+  --sp-tint-mars:  #FFE6CC;  /* peach */
+
+  /* shadows recast in soft pine (were deep indigo) */
+  --sp-shadow-pop:  0 13px 0 rgba(12,90,72,.13), 0 24px 46px rgba(12,90,72,.20);
+  --sp-shadow-card: 0 10px 28px rgba(12,90,72,.20);
+  --sp-drop:        0 6px 0 rgba(12,90,72,.26);
+}
+
+/* ------------------------------------------------------------
+   SLIDE SHELLS — repaint the (inherited) dark space classes as
+   bright cat blocks, and flip their text back to pine ink.
+   ------------------------------------------------------------ */
+.slide.cream { background:var(--sp-cream); color:var(--sp-ink); }
+
+/* BOLD MINT block — title / dividers / closing */
+.slide.space-deep {
+  color:var(--sp-ink);
+  background:
+    radial-gradient(120% 88% at 50% -12%, #B6F2C9 0%, transparent 58%),
+    radial-gradient(100% 80% at 88% 108%, rgba(127,227,232,.55), transparent 56%),
+    linear-gradient(158deg, #8DEEAC 0%, #62DB93 62%, #46CE84 100%);
+}
+/* AQUA block — a few activity dividers, for gentle rhythm */
+.slide.space {
+  color:var(--sp-ink);
+  background:
+    radial-gradient(115% 80% at 14% -10%, #E4FDF6 0%, transparent 56%),
+    radial-gradient(120% 90% at 92% 110%, rgba(255,210,63,.34), transparent 54%),
+    linear-gradient(158deg, #ADF6F2 0%, #86E6E4 60%, #6FD9D8 100%);
+}
+/* kill the inherited baked starfield + any night overlays */
+.slide.space::before, .slide.space-deep::before,
+.slide.space::after,  .slide.space-deep::after { content:none !important; background:none !important; }
+/* text on the bright blocks is dark pine, no night text-shadow */
+.slide.space .lead, .slide.space-deep .lead { color:var(--sp-ink); text-shadow:none; }
+.slide.space .owl-cap, .slide.space-deep .owl-cap { color:var(--sp-ink); }
+
+/* keep decoration layers ordered */
+.slide.space-deep .pawfield, .slide.space .pawfield { z-index:1; }
+.slide.space-deep .pad, .slide.space .pad { z-index:5; }
+
+/* on the mint/aqua blocks the plain eyebrow (white) still reads;
+   the .lead <em> pops stay ink. Titles use pd-word helpers below. */
+
+/* ============================================================
+   TITLE display words — bright, on the mint block
+   white fill + pine stroke, with rose / honey accents
+   ============================================================ */
+.slide h1.title .pd-word { -webkit-text-stroke:5px var(--sp-ink); paint-order:stroke fill; }
+.pd-c-white { color:#fff; }
+.pd-c-gold  { color:var(--sp-gold); }
+.pd-c-rose  { color:var(--sp-coral); }
+.pd-c-mint  { color:var(--sp-lav); }
+.pd-c-aqua  { color:var(--sp-aqua); }
+.pd-c-orange{ color:var(--sp-mars); }
+
+/* ============================================================
+   PAW-PRINT scatter — faint paws drift behind the content
+   <div class="pawfield" data-paws="N"></div>  (filled by script)
+   ============================================================ */
+.pawfield { position:absolute; inset:0; z-index:1; pointer-events:none; overflow:hidden; }
+.paw { position:absolute; line-height:1; will-change:transform; }
+.slide.cream .paw { color:rgba(12,90,72,.07); }
+.slide.space-deep .paw { color:rgba(255,255,255,.28); }
+.slide.space .paw { color:rgba(12,90,72,.10); }
+
+/* a soft yarn-ball / sun blob for the bright blocks */
+.blob-soft { position:absolute; border-radius:50%; z-index:0; pointer-events:none;
+  background:radial-gradient(circle at 38% 34%, rgba(255,255,255,.55), rgba(255,255,255,0) 66%); }
+
+/* dotted string trail (yarn) */
+.yarn-trail { border:none; border-top:6px dotted var(--sp-mars); opacity:.55; margin:22px 0; }
+
+/* ============================================================
+   SUBHEAD pill (redefined bright — lesson11 not linked here)
+   ============================================================ */
+.subhead { position:relative; z-index:3; display:inline-flex; align-items:center; gap:12px;
+  font-family:var(--pd-font-display); font-weight:700; font-size:30px; color:#fff;
+  background:var(--sp-ink); border:4px solid var(--sp-ink); border-radius:16px;
+  padding:8px 22px; box-shadow:var(--sp-drop); transform:rotate(-1deg); }
+.subhead.mint  { background:#2E9E6B; }
+.subhead.honey { background:var(--sp-gold-dk); }
+.subhead.rose  { background:var(--sp-coral-dk); }
+.subhead.aqua  { background:var(--sp-aqua-dk); }
+.subhead.orange{ background:var(--sp-mars-dk); }
+
+/* ============================================================
+   LITERAL vs FIGURATIVE + IDIOM / PROVERB colour codes
+   ============================================================ */
+.g-lit  { color:#1F8F89; font-weight:700; }   /* literal — teal   */
+.g-fig  { color:#C43C74; font-weight:700; }    /* figurative — rose */
+.g-idm  { color:#C25417; font-weight:700; }    /* idiom — orange   */
+.g-prov { color:#2C74B8; font-weight:700; }    /* proverb — blue   */
+.g-clue { color:#C25417; font-weight:700; }    /* generic clue word */
+
+.hl { font-weight:700; padding:.02em .22em; border-radius:8px; }
+.hl-lit { color:#0f6d68; background:var(--sp-tint-aqua);  box-shadow:0 0 0 2px #9EE7E5 inset; }
+.hl-fig { color:#a02d63; background:var(--sp-tint-coral); box-shadow:0 0 0 2px #FBC1D6 inset; }
+.hl-idm { color:#7a4400; background:var(--sp-tint-gold);  box-shadow:0 0 0 2px #FFDE7A inset; }
+
+/* two colour-coded teach cards (literal card / figurative card) */
+.lfcard { position:relative; background:#fff; border:5px solid var(--sp-ink); border-radius:30px;
+  box-shadow:var(--sp-shadow-pop); padding:26px 34px 28px; }
+.lfcard .lf-badge { display:inline-flex; align-items:center; gap:11px;
+  font-family:var(--pd-font-display); font-weight:700; font-size:27px; color:#fff; letter-spacing:.02em;
+  border:4px solid var(--sp-ink); border-radius:999px; padding:8px 24px; box-shadow:var(--sp-drop); }
+.lfcard.lit .lf-badge { background:var(--sp-aqua-dk); }
+.lfcard.fig .lf-badge { background:var(--sp-coral-dk); }
+.lfcard .lf-def { font-size:24px; font-weight:600; line-height:1.4; color:var(--sp-ink); margin:16px 0 0; }
+.lfcard .lf-eg  { font-family:var(--pd-font-display); font-weight:700; font-size:25px; line-height:1.3;
+  margin:14px 0 0; color:var(--sp-ink); }
+.lfcard.lit { transform:rotate(-1deg); }
+.lfcard.fig { transform:rotate(1deg); }
+
+/* ============================================================
+   IDIOM / PROVERB — matching board (redefined bright)
+   ============================================================ */
+.match { display:grid; grid-template-columns:1fr 1fr; gap:14px 34px; }
+.match .col-h { font-family:var(--pd-font-display); font-weight:700; font-size:23px; color:var(--sp-ink);
+  letter-spacing:.04em; text-transform:uppercase; }
+.chip-row { display:flex; flex-direction:column; gap:11px; }
+.mchip { display:flex; align-items:center; gap:15px; background:#fff; border:4px solid var(--sp-ink);
+  border-radius:16px; box-shadow:var(--sp-drop); padding:11px 18px;
+  font-size:22px; font-weight:600; line-height:1.22; color:var(--sp-ink); }
+.mchip .lead-badge { flex:none; width:44px; height:44px; border-radius:12px; display:grid; place-items:center;
+  font-family:var(--pd-font-display); font-weight:700; font-size:23px; color:var(--sp-ink);
+  border:4px solid var(--sp-ink); box-shadow:0 4px 0 rgba(12,90,72,.2); }
+.mchip.n1 .lead-badge { background:var(--sp-gold); }
+.mchip.n2 .lead-badge { background:var(--sp-aqua); }
+.mchip.n3 .lead-badge { background:var(--sp-coral); }
+.mchip.n4 .lead-badge { background:var(--sp-lav); }
+.mchip.n5 .lead-badge { background:var(--sp-mars); color:#fff; }
+.mchip.n6 .lead-badge { background:#C9B6F2; }
+.mchip.mean .lead-badge { background:#fff; color:var(--sp-violet); border-style:dashed; }
+.mchip .writeslot { flex:none; margin-left:auto; width:60px; height:42px; border:4px dashed var(--sp-violet);
+  border-radius:12px; background:#fffafc; }
+
+/* ============================================================
+   DESIGN / WRITE box (redefined bright — story canvas)
+   ============================================================ */
+.designbox { position:relative; background:#fff; border:6px dashed var(--sp-mars); border-radius:26px;
+  box-shadow:var(--sp-shadow-card); min-height:300px; }
+.designbox .db-hint { position:absolute; top:18px; left:24px; font-family:var(--pd-font-display);
+  font-weight:700; font-size:22px; color:#e0a98c; letter-spacing:.03em; }
+
+/* framed cat portrait (stands in for the owl photo frames) */
+.cat-frame { display:block; border:6px solid #fff; border-radius:28px;
+  background:linear-gradient(160deg,#FFF7E4,#FBE7C7); box-shadow:var(--sp-shadow-pop);
+  display:grid; place-items:center; }
+.cat-frame img { max-width:86%; max-height:86%; object-fit:contain;
+  filter:drop-shadow(0 10px 14px rgba(12,90,72,.28)); }
+.cat-cap { display:block; font-family:var(--pd-font-body); font-weight:700; font-size:20px;
+  text-align:center; margin-top:12px; color:var(--sp-ink); }
+
+/* little "story star" checklist box on the seed cards */
+.seed-pill { display:inline-flex; align-items:center; gap:12px; font-family:var(--pd-font-display);
+  font-weight:700; font-size:26px; color:var(--sp-ink); background:#fff; border:5px solid var(--sp-ink);
+  border-radius:18px; padding:10px 24px; box-shadow:var(--sp-drop); }
+
+/* motif drop-shadow tuned lighter for the bright world */
+.motif { z-index:5; filter:drop-shadow(0 12px 16px rgba(12,90,72,.3)); }
